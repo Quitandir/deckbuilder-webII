@@ -46,9 +46,7 @@ A pasta `vendor/`, com as bibliotecas PHP, e a pasta `assets/`, com o React e o 
 
 Esta conta já tem dois baralhos completos, com 100 cartas cada:
 
-| E-mail | Senha |
-|---|---|
-| `` | `[]` |
+O e-mail e a senha da conta de demonstração foram enviados junto com a entrega no Moodle.
 
 Também é possível criar uma conta nova pela tela de cadastro. Ela começa sem baralhos.
 
