@@ -1,0 +1,15 @@
+# Credenciais reais (vão só os arquivos .exemplo.php)
+ia_config.php
+phpmailer_config.php
+
+# Logs gerados pelo sistema
+utils/logs/
+
+# Dependências que podem ser reinstaladas
+vendor/
+frontend/node_modules/
+
+# Arquivos de editor e do sistema
+.vscode/
+.idea/
+Thumbs.db

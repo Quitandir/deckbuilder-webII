@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^7.1",
+        "anthropic-ai/sdk": "^1.8",
+        "guzzlehttp/guzzle": "^8.3"
+    }
+}
