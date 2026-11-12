@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php $titulo = 'Cadastro'; require 'views/partials/head.php'; ?>
+<?php
+$titulo = 'Cadastro';
+$descricaoPagina = 'Página de cadastro do Deckbuilder de MTG da aula de Web II.';
+$paginaPublica = true;
+require 'views/partials/head.php';
+?>
+
 <body>
     <?php require 'views/partials/cabecalho.php'; ?>
 
@@ -37,4 +43,5 @@
         </p>
     </main>
 </body>
-</html>
+
+</html>

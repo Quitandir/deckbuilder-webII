@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php $titulo = 'Recuperação de senha'; require 'views/partials/head.php'; ?>
+<?php
+$titulo = 'Recuperação de senha';
+$descricaoPagina = 'Página de recuperação de senha do Deckbuilder de MTG da aula de Web II.';
+$paginaPublica = true;
+require 'views/partials/head.php';
+?>
 <body>
     <?php require 'views/partials/cabecalho.php'; ?>
 

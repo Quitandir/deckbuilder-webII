@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php $titulo = 'Nova senha'; require 'views/partials/head.php'; ?>
+<?php
+$titulo = 'Redefinição de senha';
+$descricaoPagina = 'Página de redefinição de senha do Deckbuilder de MTG da aula de Web II.';
+// Abre com um token de recuperação na URL, então não deve ser indexada
+$paginaPublica = false;
+require 'views/partials/head.php';
+?>
 <body>
     <?php require 'views/partials/cabecalho.php'; ?>
 
