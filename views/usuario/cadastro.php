@@ -35,6 +35,14 @@ require 'views/partials/head.php';
                 <input type="password" id="confirma_senha" name="confirma_senha" class="campo"
                     autocomplete="new-password" minlength="8" required>
             </div>
+            <div class="flex items-start gap-2">
+                <input type="checkbox" id="aceite_termos" name="aceite_termos" value="1" class="mt-1" required>
+                <label for="aceite_termos" class="text-sm">
+                    Li e aceito os
+                    <a href="index.php?modulo=pagina&acao=telaTermos" target="_blank" rel="noopener" class="link">termos
+                        de uso, a política de privacidade e de direitos autorais</a>.
+                </label>
+            </div>
             <button type="submit" class="botao w-full">Cadastrar</button>
         </form>
 
@@ -42,6 +50,7 @@ require 'views/partials/head.php';
             <a href="index.php?modulo=usuario&acao=telaLogin" class="link">Já tenho conta</a>
         </p>
     </main>
+    <?php require 'views/partials/rodape.php'; ?>
 </body>
 
-</html>
+</html>

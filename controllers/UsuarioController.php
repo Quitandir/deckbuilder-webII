@@ -107,6 +107,12 @@ class UsuarioController
             exit;
         }
 
+        if (empty($_POST['aceite_termos'])) {
+            $_SESSION['erro_cadastro'] = 'Você precisa aceitar os termos de uso.';
+            header('Location: index.php?modulo=usuario&acao=telaCadastro');
+            exit;
+        }
+
 
         $usuario = new Usuario($this->db);
 

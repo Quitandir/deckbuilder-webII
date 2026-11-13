@@ -55,7 +55,7 @@
             data-comandante-id="<?= $baralho->comandante_carta_id ?>">
         </div>
     </main>
-
+  <?php require 'views/partials/rodape.php'; ?>                          
     <script type="module" src="assets/app.js"></script>
 </body>
 </html>

@@ -50,5 +50,6 @@
             </ul>
         <?php endif; ?>
     </main>
+    <?php require 'views/partials/rodape.php'; ?>
 </body>
 </html>

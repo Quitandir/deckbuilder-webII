@@ -178,7 +178,7 @@ class Usuario
     private function inserir()
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO usuario (nome, email, senha) VALUES (:nome, :email, :senha)'
+            'INSERT INTO usuario (nome, email, senha, termos_aceitos_em) VALUES (:nome, :email, :senha, NOW())'
         );
         $stmt->bindParam(':nome', $this->nome);
         $stmt->bindParam(':email', $this->email);

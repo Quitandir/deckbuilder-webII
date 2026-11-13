@@ -32,6 +32,7 @@ require 'views/partials/head.php';
             <a href="index.php?modulo=usuario&acao=telaRecuperacao" class="link">Esqueceu sua senha?</a>
         </p>
     </main>
+    <?php require 'views/partials/rodape.php'; ?>
 </body>
 
-</html>
+</html>

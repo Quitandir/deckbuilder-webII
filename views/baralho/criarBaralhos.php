@@ -53,5 +53,6 @@
     </main>
 
     <script src="js/autocomplete_comandante.js"></script>
+    <?php require 'views/partials/rodape.php'; ?>
 </body>
 </html>

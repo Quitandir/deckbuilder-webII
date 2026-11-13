@@ -28,5 +28,6 @@ require 'views/partials/head.php';
             <a href="index.php?modulo=usuario&acao=telaLogin" class="link">Voltar para o login</a>
         </p>
     </main>
+    <?php require 'views/partials/rodape.php'; ?>
 </body>
 </html>
