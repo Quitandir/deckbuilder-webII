@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      enviar_vendor:
+        description: 'Enviar também a pasta vendor/ (só quando o composer.lock mudar)'
+        type: boolean
+        default: false
 
 jobs:
   deploy:
@@ -14,20 +19,28 @@ jobs:
       - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
+      # O vendor/ tem milhares de arquivos e quase nunca muda: só é montado quando pedido.
+      # Como a action não apaga nada no servidor, o vendor/ enviado antes continua lá.
       - name: Preparar o PHP e o Composer
+        if: ${{ inputs.enviar_vendor }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           tools: composer
 
       - name: Instalar as bibliotecas PHP (vendor/)
+        if: ${{ inputs.enviar_vendor }}
         run: composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Montar a pasta só com o que vai para o servidor
         run: |
           mkdir deploy
           cp index.php config.php deploy/
-          cp -r assets controllers models utils views js img vendor deploy/
+          cp -r assets controllers models utils views js img deploy/
+
+      - name: Incluir o vendor/ no envio
+        if: ${{ inputs.enviar_vendor }}
+        run: cp -r vendor deploy/
 
       - name: Enviar para a Locaweb
         uses: locaweb/ftp-deploy@1.0.0
@@ -37,3 +50,5 @@ jobs:
           password: ${{ secrets.PASS }}
           localDir: deploy
           remoteDir: public_html
+          # Envia 10 arquivos ao mesmo tempo, como no script do tutorial
+          options: --parallel=10
