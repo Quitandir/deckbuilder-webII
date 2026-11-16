@@ -12,7 +12,7 @@ require 'views/partials/head.php';
 
     <main class="conteudo max-w-3xl">
         <h1 class="titulo">Termos de uso, privacidade e direitos autorais</h1>
-        <p class="mb-6 text-sm text-gray-600">Última atualização: 13 de novembro de 2026.</p>
+        <p class="mb-6 text-sm text-gray-600">Última atualização: 16 de novembro de 2026.</p>
 
         <div class="painel space-y-8">
             <section>
@@ -43,7 +43,10 @@ require 'views/partials/head.php';
                     <h3 class="font-semibold">Dados coletados</h3>
                     <ul class="list-disc space-y-1 pl-6">
                         <li><strong>Cadastro:</strong> nome e e-mail. A senha nunca é guardada como foi digitada,
-                            apenas um código criptográfico (hash) que não permite recuperá-la.</li>
+                            apenas um código criptográfico (hash) que não permite recuperá-la. Também registramos
+                            a data em que você aceitou estes termos.</li>
+                        <li><strong>Fale conosco:</strong> nome, e-mail, assunto e mensagem, guardados para que
+                            possamos responder.</li>
                         <li><strong>Registros de acesso:</strong> endereço IP, navegador utilizado, data, hora e as ações
                             executadas no sistema, guardados por segurança.</li>
                         <li><strong>Cookie de sessão:</strong> um único cookie, necessário para manter você conectado.
@@ -70,7 +73,8 @@ require 'views/partials/head.php';
                     <h3 class="font-semibold">Seus direitos</h3>
                     <p>Você pode pedir a qualquer momento a confirmação de que tratamos seus dados, o acesso a eles, a
                         correção de dados incorretos e a exclusão da sua conta e dos seus baralhos (art. 18 da LGPD).
-                        Para isso, escreva para <a href="mailto:deckbuilderwebii@gmail.com"
+                        Para isso, use o <a href="index.php?modulo=pagina&acao=telaContato" class="link">Fale
+                            conosco</a> ou escreva para <a href="mailto:deckbuilderwebii@gmail.com"
                             class="link">deckbuilderwebii@gmail.com</a>.</p>
 
                     <h3 class="font-semibold">Por quanto tempo guardamos</h3>
