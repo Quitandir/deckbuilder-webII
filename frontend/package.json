@@ -9,11 +9,11 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "watch": "vite build --watch"
-
   },
   "dependencies": {
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router": "^8.5.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.4",

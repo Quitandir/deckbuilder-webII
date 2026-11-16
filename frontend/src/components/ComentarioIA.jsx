@@ -24,7 +24,7 @@ export default function ComentarioIA({ baralhoId }) {
   else if (comentario) textoBotao = 'Gerar outro comentário'
 
   return (
-    <section className="painel mt-6">
+    <section className="painel rounded-t-none">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-xl font-semibold">Comentário da IA</h2>
         <button type="button" className="botao" onClick={pedirComentario} disabled={carregando}>

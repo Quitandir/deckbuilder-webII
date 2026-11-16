@@ -3,6 +3,7 @@ import { adicionarCarta, alterarQuantidade, listarCartas } from '../api.js'
 import BuscaCarta from './BuscaCarta.jsx'
 import ComentarioIA from './ComentarioIA.jsx'
 import ListaCartas from './ListaCartas.jsx'
+import { NavLink, Navigate, Route, Routes } from 'react-router'
 
 export default function EditorBaralho({ baralhoId, comandanteId }) {
   const [cartas, setCartas] = useState([])
@@ -54,33 +55,53 @@ export default function EditorBaralho({ baralhoId, comandanteId }) {
     }
   }
 
+  const estiloAba = ({ isActive }) =>
+    `rounded-t-md px-4 py-2 font-medium ${
+      isActive ? 'border border-b-0 border-gray-200 bg-white text-blue-800' : 'text-gray-600 hover:text-blue-800'
+    }`
+
   return (
     <>
-      <section className="painel">
-        <h2 className="mb-4 text-xl font-semibold">Cartas no baralho ({totalCartas}/100)</h2>
+      <nav className="flex gap-1 border-b border-gray-200">
+        <NavLink to="/cartas" className={estiloAba}>
+          Cartas ({totalCartas}/100)
+        </NavLink>
+        <NavLink to="/ia" className={estiloAba}>
+          Comentário da IA
+        </NavLink>
+      </nav>
 
-        <BuscaCarta aoAdicionar={aoAdicionar} />
+      <Routes>
+        <Route
+          path="/cartas"
+          element={
+            <section className="painel rounded-t-none">
+              <BuscaCarta aoAdicionar={aoAdicionar} />
 
-        {erro && (
-          <p role="alert" className="mensagem-erro mt-3">
-            {erro}
-          </p>
-        )}
+              {erro && (
+                <p role="alert" className="mensagem-erro mt-3">
+                  {erro}
+                </p>
+              )}
 
-        <div className="mt-4">
-          {carregando ? (
-            <p className="text-gray-600">Carregando cartas...</p>
-          ) : (
-            <ListaCartas
-              cartas={cartas}
-              comandanteId={comandanteId}
-              aoAlterarQuantidade={aoAlterarQuantidade}
-            />
-          )}
-        </div>
-      </section>
-
-      <ComentarioIA baralhoId={baralhoId} />
+              <div className="mt-4">
+                {carregando ? (
+                  <p className="text-gray-600">Carregando cartas...</p>
+                ) : (
+                  <ListaCartas
+                    cartas={cartas}
+                    comandanteId={comandanteId}
+                    aoAlterarQuantidade={aoAlterarQuantidade}
+                  />
+                )}
+              </div>
+            </section>
+          }
+        />
+        <Route path="/ia" element={<ComentarioIA baralhoId={baralhoId} />} />
+        {/* Sem # ou com uma rota desconhecida, abre a aba de cartas */}
+        <Route path="*" element={<Navigate to="/cartas" replace />} />
+      </Routes>
     </>
   )
 }
