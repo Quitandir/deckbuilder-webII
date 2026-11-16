@@ -1,0 +1,39 @@
+name: Deploy na Locaweb
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Enviar por FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar o PHP e o Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+
+      - name: Instalar as bibliotecas PHP (vendor/)
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Montar a pasta só com o que vai para o servidor
+        run: |
+          mkdir deploy
+          cp index.php config.php deploy/
+          cp -r assets controllers models utils views js img vendor deploy/
+
+      - name: Enviar para a Locaweb
+        uses: locaweb/ftp-deploy@1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          localDir: deploy
+          remoteDir: public_html
