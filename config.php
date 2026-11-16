@@ -1,14 +1,9 @@
 <?php
 
-$host = 'localhost';
-$db_user = 'root';
-$db_password = '';
-$db_name = 'deck_builder_mtg';
-$port = '3306';
+// Credenciais e endereço de cada ambiente (XAMPP ou hospedagem)
+require_once __DIR__ . '/config_local.php';
 
 date_default_timezone_set('America/Sao_Paulo');
-
-define('URL_BASE', 'http://localhost/web_ii/projeto_final');
 
 try {
     $db = new PDO(

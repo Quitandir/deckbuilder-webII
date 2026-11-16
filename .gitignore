@@ -1,6 +1,7 @@
 # Credenciais reais (vão só os arquivos .exemplo.php)
 ia_config.php
 phpmailer_config.php
+config_local.php
 
 # Logs gerados pelo sistema
 utils/logs/

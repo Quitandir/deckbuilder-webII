@@ -28,7 +28,7 @@ class PaginaController
         $sucesso = $_SESSION['mensagem_contato'] ?? null;
         unset($_SESSION['mensagem_contato']);
 
-        // O que a pessoa digitou antes de um erro, para o formulário voltar preenchido
+        // Guarda todos os erros de validação
         $valores = $_SESSION['valores_contato'] ?? [];
         unset($_SESSION['valores_contato']);
 
