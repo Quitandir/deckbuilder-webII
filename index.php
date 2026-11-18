@@ -14,9 +14,8 @@ $arquivoController = "controllers/{$controllerNome}.php";
 if (file_exists($arquivoController)) {
     require_once $arquivoController;
 
-    // Verifica se a ação existe e é pública, antes de criar o controller.
-    // Chamado daqui de fora, get_class_methods lista só os métodos públicos;
-    // os que começam com __ (como __construct) são internos do PHP, não ações.
+    // Verifica se a ação existe no cotrolador e se ela é pública.
+    // Construtor começando com __ fica de fora
     if (in_array($acao, get_class_methods($controllerNome)) && !str_starts_with($acao, '__')) {
         // Registra antes do construtor, que pode redirecionar quem não está logado
         registrar_log('INFO', 'ROUTE', $_SESSION['usuario_id'] ?? null, ['modulo' => $modulo, 'acao' => $acao]);

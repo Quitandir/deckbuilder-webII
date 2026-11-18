@@ -53,7 +53,6 @@ function enviar_email_contato($nome, $email, $assunto, $mensagem)
         $mail->Port = $porta_mailer;
         $mail->CharSet = 'UTF-8';
         $mail->setFrom($usuario_mailer, 'Deckbuilder Web II');
-        // A mensagem chega na caixa do próprio sistema; "Responder" vai para quem escreveu
         $mail->addAddress($usuario_mailer);
         $mail->addReplyTo($email, $nome);
 
@@ -80,4 +79,4 @@ function enviar_email_contato($nome, $email, $assunto, $mensagem)
         registrar_log('WARNING', 'CONTACT_EMAIL_FAILED', null, ['motivo' => $mail->ErrorInfo]);
         return false;
     }
-}
+}

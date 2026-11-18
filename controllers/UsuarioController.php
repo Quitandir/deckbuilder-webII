@@ -39,7 +39,7 @@ class UsuarioController
     // GET index.php?modulo=usuario&acao=telaRecuperacao
     public function telaRecuperacao()
     {
-        // Serve tanto para a mensagem genérica quanto para "link inválido", por isso é um aviso
+        // Serve tanto para a mensagem genérica quanto para "link inválido"
         $aviso = $_SESSION['recuperacao'] ?? null;
         unset($_SESSION['recuperacao']);
 
@@ -70,6 +70,7 @@ class UsuarioController
         $usuario = new Usuario($this->db);
         $encontrado = $usuario->buscarPorEmail($_POST['email']);
 
+        // função do PHP para bater senhas com hash
         if ($encontrado && password_verify($_POST['senha'], $encontrado->senha)) {
             $_SESSION['usuario_id'] = $encontrado->id;
             $_SESSION['logado'] = true;
@@ -125,6 +126,7 @@ class UsuarioController
 
         $usuario->nome = $_POST['nome'];
         $usuario->email = $_POST['email'];
+        // função PHP para transformar str em hash
         $usuario->senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
 

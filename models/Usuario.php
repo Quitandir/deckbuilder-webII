@@ -166,7 +166,7 @@ class Usuario
         return $usuarios;
     }
 
-    // Salva o objeto atual: INSERT se não tem id, UPDATE se já tem
+    // Salva o usuário: INSERT se não tem id, UPDATE se já tem
     public function salvar()
     {
         if (empty($this->id)) {

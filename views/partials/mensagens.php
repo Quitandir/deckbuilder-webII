@@ -1,4 +1,4 @@
-<?php // Mostra $erro, $sucesso e $aviso, quando a tela tiver alguma delas ?>
+<?php // componente que agrupa as mensagens de sessão (erro, sucesso, aviso) para exibir nas telas ?>
 <?php if (!empty($erro)): ?>
     <p role="alert" class="mensagem-erro"><?= htmlspecialchars($erro) ?></p>
 <?php endif; ?>

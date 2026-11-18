@@ -132,8 +132,6 @@ class Baralho
         return $stmt->execute();
     }
 
-    // ---- Métodos relacionados a arquétipos (relação N:N) ----
-
     // Associa um arquétipo (por id) a este baralho
     public function adicionarArquetipo($arquetipo_id)
     {
@@ -206,7 +204,7 @@ class Baralho
         return $stmt->execute();
     }
 
-    // Lista as cartas do baralho, já com quantidade e dados da carta (JOIN)
+    // Lista as cartas do baralho, já com quantidade e dados da carta
     public function listarCartas()
     {
         if (empty($this->id)) {
@@ -281,9 +279,7 @@ class Baralho
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // ---- Métodos usados pelas regras do Commander ----
-
-    // Soma as quantidades de todas as cartas do baralho, incluindo o comandante
+    // Soma as quantidades de todas as cartas do baralho, incluindo CMD
     public function contarCartas()
     {
         if (empty($this->id)) {
@@ -318,4 +314,4 @@ class Baralho
 
         return $stmt->fetchColumn() > 0;
     }
-}
+}

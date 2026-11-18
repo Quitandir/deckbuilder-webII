@@ -1,4 +1,4 @@
-<?php // Os links de navegação só aparecem para quem está logado ?>
+<?php // links de navegação só aparecem para quem está logado ?>
 <header class="border-b border-gray-200 bg-white">
     <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-3">
         <?php $logado = !empty($_SESSION['logado']); ?>

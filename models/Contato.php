@@ -16,7 +16,7 @@ class Contato
         $this->db = $db;
     }
 
-    // Salva o objeto atual. Mensagens de contato só são criadas, nunca editadas.
+    // Salva a mensagem de contato no banco
     public function salvar()
     {
         $stmt = $this->db->prepare(

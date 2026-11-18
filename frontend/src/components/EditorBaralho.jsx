@@ -10,7 +10,7 @@ export default function EditorBaralho({ baralhoId, comandanteId }) {
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState(null)
 
-  // Calculado a cada renderização a partir da lista, então nunca fica desatualizado
+  // Calcula a cada renderização a partir da lista
   const totalCartas = cartas.reduce((soma, carta) => soma + carta.quantidade, 0)
 
   const carregarCartas = useCallback(async () => {

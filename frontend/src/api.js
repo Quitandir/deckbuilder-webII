@@ -1,3 +1,5 @@
+// Arquivo js que usa fetch para chamar as ações dos controladores do baralho pra passar pro React
+
 const URL_BARALHO = 'index.php?modulo=baralho&acao='
 
 async function chamarPhp(url, opcoes) {

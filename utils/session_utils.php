@@ -1,26 +1,13 @@
 <?php
 
-/**
- * session_utils.php
- *
- * Funções auxiliares para proteger e auditar a sessão do usuário logado:
- *  - Expiração por inatividade (SESSION_EXPIRED)
- *  - Detecção de mutação abrupta de IP ou User-Agent (SUSPICIOUS_SESSION_MUTATION)
- *
- * Depende de logger.php.
- */
+// Arquivo com funções para validar e proteger as sessões geradas pelo sistema
 
 require_once __DIR__ . '/logger.php';
 
 // Tempo máximo de inatividade antes da sessão expirar automaticamente (em segundos)
 define('SESSAO_TIMEOUT_SEGUNDOS', 900); // 15 minutos
 
-/**
- * Deve ser chamada logo após um login bem-sucedido.
- * Guarda na sessão um "fingerprint" (hash) do IP e do User-Agent atuais,
- * para que possamos detectar mudanças bruscas mais tarde — sem guardar
- * o IP/User-Agent em texto puro dentro da sessão.
- */
+// Registra uma impressão digital da sessão
 function registrar_fingerprint_sessao(): void
 {
     $_SESSION['ip_fingerprint'] = hash('sha256', $_SERVER['REMOTE_ADDR'] ?? '');
@@ -28,16 +15,7 @@ function registrar_fingerprint_sessao(): void
     $_SESSION['last_activity']  = time();
 }
 
-/**
- * Verifica se a sessão atual ainda é válida:
- *  1. Usuário precisa estar marcado como logado.
- *  2. Sessão não pode estar expirada por inatividade.
- *  3. IP e User-Agent não podem ter mudado abruptamente desde o login.
- *
- * Em qualquer violação, registra o evento apropriado no log e encerra a sessão.
- *
- * @return bool true se a sessão é válida e pode continuar
- */
+// Verificação de sessão ativa, se é o usuário certo e outras mutações de sessão
 function verificar_sessao_ativa(): bool
 {
     if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
@@ -80,10 +58,7 @@ function verificar_sessao_ativa(): bool
     return true;
 }
 
-/**
- * Encerra a sessão de forma completa e segura: limpa os dados da sessão,
- * apaga o cookie de sessão e destrói a sessão no servidor.
- */
+// Encerra a sessão de forma completa e segura: limpa os dados da sessão,apaga o cookie de sessão e destrói a sessão no servidor.
 function finalizar_sessao(): void
 {
     $_SESSION = [];

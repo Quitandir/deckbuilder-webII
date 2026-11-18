@@ -1,6 +1,7 @@
 <?php
-// Cada view define $titulo antes de incluir este arquivo. Opcionais:
-// $descricaoPagina (texto da página) e $paginaPublica (true para aparecer nos buscadores)
+
+// Cabeçalho com as meta tags para SEO, copyright, descrição e afins. Vai em cada uma das views.
+
 $descricaoPagina = $descricaoPagina ?? 'Deckbuilder de MTG para aula de Web II';
 $paginaPublica = $paginaPublica ?? false;
 
@@ -19,7 +20,7 @@ $urlImagem = URL_BASE . '/img/og-imagem.png';
     <meta name="robots" content="<?= $paginaPublica ? 'index, follow' : 'noindex, nofollow' ?>">
     <link rel="canonical" href="<?= htmlspecialchars($urlPagina) ?>">
 
-    <!-- Autoria e direitos -->
+    <!-- autoria e direitos -->
     <meta name="author" content="Moisés Enick Carniel">
     <meta name="copyright" content="© 2026 MTG Deck Builder. Proibida a reprodução sem autorização.">
     <meta name="dcterms.rights" content="© 2026 MTG Deck Builder. Proibida a reprodução sem autorização.">

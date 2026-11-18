@@ -9,7 +9,6 @@ require_once 'utils/ia_utils.php';
 
 class BaralhoController
 {
-    // No Commander, o baralho tem exatamente 100 cartas, contando o comandante
     private const LIMITE_CARTAS = 100;
 
     private $db;
@@ -71,7 +70,7 @@ class BaralhoController
         $baralho = new Baralho($this->db);
         $encontrado = $baralho->buscarPorId($id);
 
-        // Verifica se o baralho existe E se pertence ao usuário logado
+        // Verifica se o baralho existe e se pertence ao usuário logado
         if (!$encontrado || $encontrado->usuario_id != $_SESSION['usuario_id']) {
             $_SESSION['erro_baralhos'] = 'Baralho não encontrado.';
             header('Location: index.php?modulo=baralho&acao=telaBaralhos');
@@ -106,7 +105,7 @@ class BaralhoController
     public function criarBaralho()
     {
 
-        //var_dump($_POST); // <- comando para testar o que está chegando no post.
+        //var_dump($_POST); comando para testar o que está chegando no post.
         //exit;
 
         $nome = $this->lerTexto('nome');
@@ -126,7 +125,7 @@ class BaralhoController
             exit;
         }
 
-        // O id vem de um campo hidden, então pode ter sido alterado: confere no banco
+        // confere se carta do comandante é lendária
         $comandante = new Carta($this->db);
         if (!$comandante->buscarPorId($comandanteCartaId) || !$comandante->podeSerComandante()) {
             $_SESSION['erro_criar_baralhos'] = 'O comandante precisa ser uma criatura lendária.';
@@ -164,7 +163,7 @@ class BaralhoController
         $baralho = new Baralho($this->db);
         $encontrado = $id ? $baralho->buscarPorId($id) : null;
 
-        // Verifica se o baralho existe E se pertence ao usuário logado
+        // Verifica se o baralho existe e se pertence ao usuário logado
         if (!$encontrado || $encontrado->usuario_id != $_SESSION['usuario_id']) {
             $_SESSION['erro_baralhos'] = 'Baralho não encontrado.';
             header('Location: index.php?modulo=baralho&acao=telaBaralhos');
@@ -199,14 +198,14 @@ class BaralhoController
         exit;
     }
 
-    // Lê um campo de texto do formulário sem os espaços das pontas ('' se não vier texto)
+    // Formata texto que chega do POST
     private function lerTexto($campo)
     {
         $valor = $_POST[$campo] ?? '';
         return is_string($valor) ? trim($valor) : '';
     }
 
-    // Mesma regra para criar e editar; 100 é o tamanho da coluna baralho.nome
+    // Função para validar nome do baralho
     private function validarNomeBaralho($nome)
     {
         if ($nome === '') {
@@ -220,7 +219,7 @@ class BaralhoController
         return null;
     }
 
-    // Deixa no banco exatamente os arquétipos marcados no formulário
+    // Registra os arquétipos marcados na edição dos baralhos
     private function sincronizarArquetipos($baralho, $marcados)
     {
         $arquetipoModel = new Arquetipo($this->db);

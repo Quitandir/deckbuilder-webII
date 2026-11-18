@@ -135,9 +135,7 @@ class Carta {
         return $stmt->execute();
     }
 
-    // Recebe os dados já decodificados do JSON da Scryfall e devolve
-    // um objeto Carta salvo no banco — reaproveitando se já existir,
-    // inserindo se ainda não existir (upsert por scryfall_id)
+    // Recebe os dados já decodificados do JSON do Scryfall e devolve um objeto Carta salvo no banco
     public function buscarOuCriarPorDadosScryfall($dadosScryfall) {
 
         $existente = $this->buscarPorScryfallId($dadosScryfall['id']);
@@ -158,8 +156,7 @@ class Carta {
         return $this;
     }
 
-    // Completa, pela Scryfall, uma carta salva antes das regras do Commander.
-    // Devolve false se os dados continuarem faltando.
+    // Método criado para complementar as regras de comandante
     public function completarDadosFaltantes() {
         if (!empty($this->oracle_id)) {
             return true;
@@ -177,7 +174,7 @@ class Carta {
 
     // ---- Regras do Commander ----
 
-    // Pode ser comandante: criatura lendária (na face da frente) ou carta que diz isso no texto
+    // Verifica se a carta pode ser CMD
     public function podeSerComandante() {
         $tipoDaFrente = explode(' // ', $this->tipo ?? '')[0];
         $criaturaLendaria = str_contains($tipoDaFrente, 'Legendary') && str_contains($tipoDaFrente, 'Creature');
@@ -185,13 +182,13 @@ class Carta {
         return $criaturaLendaria || str_contains($this->texto_oracle ?? '', 'can be your commander');
     }
 
-    // Terrenos básicos e cartas como Relentless Rats podem ter várias cópias
+    // Verifica se é terreno básico ou carta que pode ter mais de uma cópia
     public function permiteVariasCopias() {
         return str_starts_with($this->tipo ?? '', 'Basic')
             || str_contains($this->texto_oracle ?? '', 'any number of cards named');
     }
 
-    // Cabe no baralho se todas as cores da carta estiverem na identidade do comandante
+    // Verifica se carta faz parte da identidade do CMD
     public function cabeNaIdentidade($identidadeComandante) {
         // Carta incolor (identidade vazia) cabe em qualquer baralho
         if ($this->identidade_cor === '') {

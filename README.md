@@ -18,9 +18,9 @@ Esse projeto é  trabalho final da disciplina de Desenvolvimento para Web II, no
 - **Contas de usuário:** cadastro com aceite dos termos de uso, login, logout e recuperação de senha por e-mail.
 - **Baralhos:** criar, editar nome, descrição e arquétipos, e excluir. A lista de baralhos mostra o comandante e quantas cartas cada um tem.
 - **Editor de cartas (React):** busca com autocompletar, adição de cartas, botões **+** e **−** e contador de cartas, sem recarregar a página.
-- **Regras do Commander** aplicadas no servidor:
+- **Regras do Commander:** 
   - o comandante precisa ser uma criatura lendária, ou uma carta que diga que pode ser comandante;
-  - uma cópia de cada carta, exceto terrenos básicos e cartas que permitem várias cópias, como Relentless Rats. Impressões diferentes da mesma carta contam como a mesma, pelo `oracle_id` da Scryfall;
+  - uma cópia de cada carta, exceto terrenos básicos e cartas que permitem várias cópias.
   - no máximo 100 cartas, contando o comandante;
   - toda carta precisa estar dentro da identidade de cor do comandante.
 - **Comentário da IA:** analisa o baralho atual (sinergia, base de mana, curva, funções essenciais, progresso) e sugere cartas, num parágrafo em português.
@@ -35,7 +35,7 @@ Esse projeto é  trabalho final da disciplina de Desenvolvimento para Web II, no
 | Camada | Tecnologia |
 |---|---|
 | Back-end | PHP 8 com MVC próprio (`index.php` como controlador frontal) e PDO |
-| Banco de dados | MySQL / MariaDB |
+| Banco de dados | MySQL |
 | Front-end | Views em PHP, React 19 no editor de cartas, Tailwind CSS 4 e Vite 8 |
 | Cartas | API pública do Scryfall |
 | E-mail | PHPMailer 7, via SMTP do Gmail |
@@ -142,36 +142,3 @@ projeto_final/
 
 ---
 
-## Segurança
-
-- **Senhas:** guardadas com `password_hash` e conferidas com `password_verify`. Mínimo de 8 caracteres.
-- **Sessão:** o id é renovado no login. A sessão expira após 15 minutos sem uso e é encerrada se o IP ou o navegador mudarem.
-- **Acesso:** todas as ações de baralho exigem login e conferem se o baralho pertence ao usuário. Métodos privados dos controllers não podem ser chamados pela URL.
-- **Recuperação de senha:**
-  - o token é aleatório (`random_bytes`) e o banco guarda só o hash SHA-256 dele;
-  - o link vale 30 minutos e funciona uma única vez;
-  - um pedido novo invalida os anteriores;
-  - a tela responde do mesmo jeito para e-mails cadastrados e não cadastrados.
-- **Validação:** os formulários são validados no navegador (HTML) e de novo no servidor: no cadastro, senhas iguais e com tamanho mínimo, aceite dos termos e e-mail sem duplicidade; no Fale conosco, campos obrigatórios, tamanhos máximos e formato do e-mail; nos baralhos, nome obrigatório e com tamanho máximo.
-- **Banco:** consultas com prepared statements (PDO). A troca de senha e a marcação do token como usado acontecem numa transação.
-- **Saída:** o conteúdo vindo do usuário é exibido com `htmlspecialchars`, inclusive nos e-mails enviados pelo Fale conosco.
-- **IA:** a chave fica só no servidor. O nome e a descrição do baralho vão para a IA separados das instruções, e o prompt manda ignorar pedidos escritos nesses campos.
-- **Logs:** cada requisição é registrada em `utils/logs/auth.log` (eventos `ROUTE`, `ACTION_NOT_FOUND` e `PAGE_NOT_FOUND`), junto com login, falha de login, logout, sessão expirada, troca de senha, uso da IA e falhas no envio de e-mail. A pasta é bloqueada para acesso pelo navegador.
-- **Erros:** falhas de conexão com o banco mostram uma mensagem genérica, com código HTTP 503. O detalhe vai para o log de erros do servidor.
-
----
-
-## Alterando o React ou o CSS
-
-O código-fonte do editor de cartas e do Tailwind fica em `frontend/`. Depois de qualquer alteração, é preciso gerar o build, porque o site usa os arquivos de `assets/`. Isso exige o **Node.js**:
-
-```bash
-cd frontend
-npm install
-npm run build    # gera assets/app.js e assets/app.css uma vez
-npm run watch    # ou: gera de novo a cada arquivo salvo
-```
-
-Use sempre o site pelo Apache (`http://localhost/...`), **não** pelo `npm run dev`. O servidor de desenvolvimento do Vite não tem PHP, sessão nem banco.
-
-As classes do Tailwind usadas nas views PHP também entram no build, porque o `frontend/src/index.css` aponta para as pastas `views/` e `js/`.

@@ -48,8 +48,10 @@ class PaginaController
 
         if ($nome === '' || $email === '' || $assunto === '' || $mensagem === '') {
             $erro = 'Nenhum campo pode estar vazio.';
+        // mb_strlen para capturar caracteres especiais como apenas um
         } elseif (mb_strlen($nome) > 100) {
             $erro = 'O nome pode ter no máximo 100 caracteres.';
+        // filter_var para validar formato    
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($email) > 150) {
             $erro = 'Informe um e-mail válido, com até 150 caracteres.';
         } elseif (mb_strlen($assunto) > 150) {

@@ -1,5 +1,7 @@
 <?php
 
+// Model dos arquétipos que cada baralho pode ter
+
 class Arquetipo {
 
     private $db;
@@ -33,7 +35,7 @@ class Arquetipo {
         return $this;
     }
 
-    // Lista todos os arquétipos cadastrados (usado para montar os checkboxes)
+    // Lista todos os arquétipos cadastrados (usado para montar as caixas de selção)
     public function listarTodos() {
         $stmt = $this->db->query('SELECT * FROM arquetipo ORDER BY nome');
         $linhas = $stmt->fetchAll(PDO::FETCH_ASSOC);

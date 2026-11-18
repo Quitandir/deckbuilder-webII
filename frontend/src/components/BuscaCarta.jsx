@@ -17,6 +17,7 @@ export default function BuscaCarta({ aoAdicionar }) {
   useEffect(() => {
     if (!buscaValida) return
 
+    // objeto do próprio navegador que serve para cancelar uma requisição fetch já enviada    
     const controle = new AbortController()
 
     const espera = setTimeout(async () => {

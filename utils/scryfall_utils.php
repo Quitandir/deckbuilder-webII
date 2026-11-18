@@ -1,15 +1,9 @@
 <?php
 
-/**
- * scryfall_utils.php
- *
- * Consultas à API da Scryfall usadas pelo controller e pelo model Carta.
- * Todas devolvem o JSON da carta já decodificado, ou null se não encontrar ou falhar.
- */
-
+// Arquivo utilitário com os métodos que retornam JSON das info das cartas do Scryfall.
 function requisitar_scryfall($url)
 {
-    // A Scryfall pede que toda requisição se identifique e aceite JSON
+    // Scryfall pede que toda requisição se identifique e aceite JSON
     $contexto = stream_context_create([
         'http' => [
             'method' => 'GET',

@@ -14,7 +14,7 @@
 
         <?php require 'views/partials/mensagens.php'; ?>
 
-        <?php // <details> deixa o formulário recolhido; ele abre sozinho depois de um erro ?>
+        <?php // <details> deixa o formulário recolhido e abre se der erro. ?>
         <details class="painel mb-6" <?= !empty($erro) ? 'open' : '' ?>>
             <summary class="cursor-pointer font-semibold">Editar nome, descrição e arquétipos</summary>
 
@@ -50,6 +50,7 @@
             </form>
         </details>
 
+        <?php // JS captura a próxima div pra receber os componentes React  ?>
         <div id="editor-baralho"
             data-baralho-id="<?= $baralho->id ?>"
             data-comandante-id="<?= $baralho->comandante_carta_id ?>">

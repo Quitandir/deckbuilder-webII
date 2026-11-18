@@ -1,31 +1,13 @@
 <?php
 
-/**
- * logger.php
- *
- * Sistema de logs de auditoria para autenticação e gerenciamento de sessões.
- *
- * Cada linha do arquivo de log é um JSON (formato ndjson) contendo:
- *  - timestamp (ISO-8601, com fuso horário)
- *  - nivel (INFO, WARNING, SECURITY)
- *  - evento (LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, SESSION_EXPIRED, SUSPICIOUS_SESSION_MUTATION, ...)
- *  - usuario (identificador do usuário, quando disponível)
- *  - ip (endereço IP de origem)
- *  - user_agent (navegador/dispositivo de origem)
- *  - request_id (UUID por requisição, para correlacionar eventos)
- *
- * IMPORTANTE (privacidade / segurança):
- *  - NUNCA registrar senha (nem em texto puro, nem hash) neste log.
- *  - NUNCA registrar o valor completo do ID de sessão (PHPSESSID / app_login).
- *  - O log fica em uma pasta própria com .htaccess bloqueando acesso via navegador.
- */
+// Arquivo utilitário com as funções de log do sistema
 
 define('LOG_DIR', __DIR__ . '/logs');
 define('LOG_FILE', LOG_DIR . '/auth.log');
 
-/**
- * Garante que a pasta de logs existe e não é acessível diretamente pelo navegador.
- */
+
+// Proteção para logs não serem acessados pelo navegador
+
 function garantir_diretorio_log(): void
 {
     if (!is_dir(LOG_DIR)) {
@@ -39,10 +21,9 @@ function garantir_diretorio_log(): void
     }
 }
 
-/**
- * Gera (uma única vez por requisição) um UUID v4 para correlacionar
- * todos os eventos de log gerados durante essa mesma requisição.
- */
+
+// Gera (uma única vez por requisição) um UUID v4 para correlacionar todos os eventos de log gerados durante essa mesma requisição.
+
 function obter_request_id(): string
 {
     static $request_id = null;
@@ -66,15 +47,7 @@ function obter_request_id(): string
     return $request_id;
 }
 
-/**
- * Obtém o IP de origem da requisição.
- *
- * Observação de segurança: em produção, só confie em cabeçalhos de proxy
- * reverso (ex.: X-Forwarded-For) se o servidor estiver de fato atrás de um
- * proxy confiável e configurado para sobrescrever esse cabeçalho — caso
- * contrário, o cliente pode falsificá-lo livremente. Em ambiente de
- * desenvolvimento (XAMPP local), usamos apenas REMOTE_ADDR.
- */
+// Obtem IP do cliente
 function obter_ip_cliente(): string
 {
     return $_SERVER['REMOTE_ADDR'] ?? 'desconhecido';

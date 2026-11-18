@@ -4,6 +4,9 @@ const erroComandante = document.getElementById('erroComandante');
 const campoComandante = document.getElementById('comandanteCartaId');
 const quadroComandante = document.getElementById('comandante-frame');
 
+// js apenas para a tela de criar baralhos para validar as sugestões e escolha do comandante.
+
+// Essa var guarda um id da buscar para não fazer requisição pro Scryfall a cada tecla digitada.
 let timeoutId = null;
 
 inputBusca.addEventListener('input', () => {
@@ -20,14 +23,15 @@ inputBusca.addEventListener('input', () => {
 });
 
 // Fecha a lista de sugestões ao clicar fora do campo
-document.addEventListener('click', (evento) => {
-    if (evento.target !== inputBusca) {
+document.addEventListener('click', (e) => {
+    if (e.target !== inputBusca) {
         listaSugestoes.style.display = 'none';
     }
 });
 
 async function buscarSugestoes(termo) {
     try {
+        // Consulta retorna objeto: {"object":"catalog","total_values":1,"data":["Helga, Skittish Seer"]}
         const resposta = await fetch(`https://api.scryfall.com/cards/autocomplete?q=${encodeURIComponent(termo)}`);
         const dados = await resposta.json();
 
@@ -37,6 +41,7 @@ async function buscarSugestoes(termo) {
     }
 }
 
+// Para cada nome sugerido dentro do data retornado na função anterior, cria uma li clicável para capturarComandante.
 function exibirSugestoes(nomes) {
     listaSugestoes.innerHTML = '';
 
