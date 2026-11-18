@@ -10,8 +10,17 @@ define('LOG_FILE', LOG_DIR . '/auth.log');
 
 function garantir_diretorio_log(): void
 {
+    // 0755 deixa o usuário de FTP ler a pasta, mesmo quando o PHP roda com outro usuário.
+    // O acesso pelo navegador continua bloqueado pelo .htaccess abaixo.
     if (!is_dir(LOG_DIR)) {
-        mkdir(LOG_DIR, 0750, true);
+        mkdir(LOG_DIR, 0755, true);
+    } elseif ((fileperms(LOG_DIR) & 0777) !== 0755) {
+        // Corrige a pasta criada antes com 0750
+        @chmod(LOG_DIR, 0755);
+    }
+
+    if (file_exists(LOG_FILE) && (fileperms(LOG_FILE) & 0777) !== 0644) {
+        @chmod(LOG_FILE, 0644);
     }
 
     $htaccess = LOG_DIR . '/.htaccess';
